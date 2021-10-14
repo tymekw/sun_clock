@@ -27,15 +27,29 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.lang.Object;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class MainActivity extends AppCompatActivity {
 
 
     Double latitude;
     Double longitude;
+
+    Double sunAltitude;
+    Double sunAzimuth;
+    Double sunDistance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +62,33 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://api.ipgeolocation.io/astronomy?apiKey=b11b04e7b7a546c6b01ea20c3d79fb7e&lat=41.3558443&long=-74.00776718841271";
 
+        // Display the first 500 characters of the response string.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                     // Display the first 500 characters of the response string.
-                    setLabel(response.substring(0, 500));
+                    parseResponse(response);
                 }, error -> {
             setLabel("That didn't work!");
         });
         queue.add(stringRequest);
     }
+
+    private void parseResponse(String response){
+
+        try {
+            JSONObject jObject = new JSONObject(response);
+            sunAltitude = jObject.getDouble("sun_altitude");
+            sunAzimuth = jObject.getDouble("sun_azimuth");
+            sunDistance = jObject.getDouble("sun_distance");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
 
     private void setLabel(String text) {
         Button button = (Button) findViewById(R.id.button);
