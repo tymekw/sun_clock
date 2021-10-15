@@ -1,6 +1,7 @@
 package agh.sunclock;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -15,18 +16,22 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Optional;
+
 import client.IPGeolocationClient;
 import model.SunData;
 
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class MainActivity extends AppCompatActivity {
     private IPGeolocationClient client;
-    private Double latitude;
-    private Double longitude;
+    private Optional<Double> latitude = Optional.empty();
+    private Optional<Double> longitude = Optional.empty();
 
     private SunData sunData;
 
@@ -81,14 +86,21 @@ public class MainActivity extends AppCompatActivity {
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 1, new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
+                latitude = Optional.of(location.getLatitude());
+                longitude = Optional.of(location.getLongitude());
                 System.out.println(String.valueOf(location.getLatitude()));
                 setLabelGPS("LNG: " + String.valueOf(location.getLongitude()) + " \nLAT: " + String.valueOf(latitude));
             }
         });
     }
 
+    public Optional<Double> getLatitude() {
+        return latitude;
+    }
+
+    public Optional<Double> getLongitude() {
+        return longitude;
+    }
 
     // new code that read data about smartphones tilt around each axis
     // floatOrientation -> matrix containing this data
