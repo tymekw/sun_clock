@@ -28,17 +28,28 @@ public class MainActivity extends AppCompatActivity {
     private Double latitude;
     private Double longitude;
 
+    private SunData sunData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initClient();
+        init();
+    }
+
+    public void setSunData(SunData sunData) {
+        this.sunData = sunData;
     }
 
     public void click(View view) {
-        SunData sunData = client.getSunInfo(latitude, longitude);
         setLabel(sunData.toString());
+    }
+
+    private void init() {
+        initClient();
+        readGpsData();
+        new GetSunDataAsyncTask(this).execute(latitude, longitude);
     }
 
     private void initClient() {
@@ -56,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void gpsDataReader(View view) {
+        readGpsData();
+    }
+
+    private void readGpsData() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -96,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener((e -> ((TextView) findViewById(R.id.latText)).setText(text)));
     }
 
-    public void SensorManager(View view){
+    public void SensorManager(View view) {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         sensorAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -141,3 +156,5 @@ public class MainActivity extends AppCompatActivity {
         sensorManager.registerListener(sensorEventListenerMagneticField, sensorMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
     }
 }
+
+
