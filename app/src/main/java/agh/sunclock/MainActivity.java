@@ -40,8 +40,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.spinner);
         init();
+    }
+
+    public void changeToMainView() {
+        setContentView(R.layout.activity_main);
+        imageView = findViewById(R.id.imageView);
+        imageView3 = findViewById(R.id.imageView3);
+        initSensorManager();
     }
 
     public void setSunData(SunData sunData) {
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 latitude = Optional.of(location.getLatitude());
                 longitude = Optional.of(location.getLongitude());
                 System.out.println(String.valueOf(location.getLatitude()));
-                setLabelGPS("LNG: " + String.valueOf(location.getLongitude()) + " \nLAT: " + String.valueOf(latitude));
+//                setLabelGPS("LNG: " + String.valueOf(location.getLongitude()) + " \nLAT: " + String.valueOf(latitude));
             }
         });
     }
@@ -121,14 +128,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private ImageView imageView3;
 
-    public void onSensorClick(String text) {
-        Button button = (Button) findViewById(R.id.orientation);
-        imageView = findViewById(R.id.imageView);
-        imageView3 = findViewById(R.id.imageView3);
-        button.setOnClickListener((e -> ((TextView) findViewById(R.id.latText)).setText(text)));
-    }
 
-    public void SensorManager(View view) {
+    public void initSensorManager() {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         sensorAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -141,12 +142,14 @@ public class MainActivity extends AppCompatActivity {
 
                 SensorManager.getRotationMatrix(floatRotationMatrix, null, floatGravity, floatGeoMagnetic);
                 SensorManager.getOrientation(floatRotationMatrix, floatOrientation);
-                onSensorClick("ok");
-                System.out.println("N/S: " + floatOrientation[0] +
-                        "\n screen up/down: " + floatOrientation[1] +
-                        "\n screen left/right: " + floatOrientation[2]);
+//                onSensorClick("ok");
+//                System.out.println("N/S: " + floatOrientation[0] +
+//                        "\n screen up/down: " + floatOrientation[1] +
+//                        "\n screen left/right: " + floatOrientation[2]);
 
                 imageView.setRotation((float) (floatOrientation[0]*180/3.1415));
+                double compass = floatOrientation[0]*180/3.1415;
+                imageView3.setRotation((float) (sunData.getAzimuth().floatValue())-180 + (float) compass);
             }
 
             @Override
@@ -161,10 +164,10 @@ public class MainActivity extends AppCompatActivity {
 
                 SensorManager.getRotationMatrix(floatRotationMatrix, null, floatGravity, floatGeoMagnetic);
                 SensorManager.getOrientation(floatRotationMatrix, floatOrientation);
-                onSensorClick("ok1");
-                System.out.println("Magnetic N/S: " + floatOrientation[0] +
-                        "\n Magnetic screen up/down: " + floatOrientation[1] +
-                        "\n Magnetic screen left/right: " + floatOrientation[2]);
+//                onSensorClick("ok1");
+//                System.out.println("Magnetic N/S: " + floatOrientation[0] +
+//                        "\n Magnetic screen up/down: " + floatOrientation[1] +
+//                        "\n Magnetic screen left/right: " + floatOrientation[2]);
 
                 imageView.setRotation((float) (floatOrientation[0]*180/3.1415));
                 double compass = floatOrientation[0]*180/3.1415;

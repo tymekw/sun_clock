@@ -42,5 +42,6 @@ public class GetSunDataAsyncTask extends AsyncTask<Optional<Double>, String, Sun
     @Override
     protected void onPostExecute(SunData result) {
         mainActivity.setSunData(result);
+        mainActivity.changeToMainView();
     }
 }
