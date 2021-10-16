@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeToMainView() {
         setContentView(R.layout.activity_main);
-        imageView = findViewById(R.id.compass);
+        imageView = findViewById(R.id.dial);
         imageView3 = findViewById(R.id.shadow);
         initSensorManager();
     }

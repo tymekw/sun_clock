@@ -14,7 +14,7 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/compass" />
+        app:srcCompat="@drawable/compass1" />
 
     <ImageView
         android:id="@+id/shadow"
@@ -41,5 +41,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/dial"
+        android:layout_width="9dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/compass"
+        app:layout_constraintEnd_toEndOf="@+id/compass"
+        app:layout_constraintStart_toStartOf="@+id/compass"
+        app:layout_constraintTop_toTopOf="@+id/compass"
+        app:srcCompat="@drawable/dial" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
