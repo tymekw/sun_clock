@@ -38,14 +38,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="162dp"
-        android:layout_marginTop="239dp"
+        android:layout_marginTop="280dp"
         android:layout_marginEnd="161dp"
-        android:layout_marginBottom="69dp"
+        android:layout_marginBottom="27dp"
         android:nestedScrollingEnabled="false"
         android:onClick="gpsDataReader"
         android:text="GPS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -75,5 +76,25 @@
         app:layout_constraintEnd_toStartOf="@+id/gpsButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/latText" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="121dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="68dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/latText"
+        app:srcCompat="@drawable/compass" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/latText"
+        app:srcCompat="@drawable/kij" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

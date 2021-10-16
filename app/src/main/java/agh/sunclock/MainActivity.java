@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Optional;
@@ -117,9 +118,13 @@ public class MainActivity extends AppCompatActivity {
     private float[] floatOrientation = new float[3];
     private float[] floatRotationMatrix = new float[9];
 
+    private ImageView imageView;
+    private ImageView imageView3;
 
     public void onSensorClick(String text) {
         Button button = (Button) findViewById(R.id.orientation);
+        imageView = findViewById(R.id.imageView);
+        imageView3 = findViewById(R.id.imageView3);
         button.setOnClickListener((e -> ((TextView) findViewById(R.id.latText)).setText(text)));
     }
 
@@ -140,6 +145,8 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("N/S: " + floatOrientation[0] +
                         "\n screen up/down: " + floatOrientation[1] +
                         "\n screen left/right: " + floatOrientation[2]);
+
+                imageView.setRotation((float) (floatOrientation[0]*180/3.1415));
             }
 
             @Override
@@ -158,6 +165,10 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Magnetic N/S: " + floatOrientation[0] +
                         "\n Magnetic screen up/down: " + floatOrientation[1] +
                         "\n Magnetic screen left/right: " + floatOrientation[2]);
+
+                imageView.setRotation((float) (floatOrientation[0]*180/3.1415));
+                double compass = floatOrientation[0]*180/3.1415;
+                imageView3.setRotation((float) (sunData.getAzimuth().floatValue())-180 + (float) compass);
             }
 
             @Override
