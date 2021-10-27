@@ -119,11 +119,11 @@ public class MainActivity extends AppCompatActivity {
 
                 imageView.setRotation((float) (floatOrientation[0] * 180 / 3.1415));
                 double compass = floatOrientation[0] * 180 / 3.1415;
-                imageView3.setRotation((float) (sunData.getAzimuth().floatValue()) - 180 + (float) compass);
+                imageView3.setRotation((float) (sunData.getAzimuth().floatValue()) + 180 - (float) compass);
                 if (sunData.getAltitude() < 0) {
                     imageView3.setScaleY(0);
                 } else {
-                    imageView3.setScaleY((float) (1 / Math.tan(sunData.getAltitude().floatValue())));
+                    imageView3.setScaleY((float) (0.1 / Math.tan(sunData.getAltitude().floatValue() * 3.14/180)));
                 }
                 System.out.println("altitude: " + sunData.getAltitude());
             }
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
                 imageView.setRotation((float) (floatOrientation[0] * 180 / 3.1415));
                 double compass = floatOrientation[0] * 180 / 3.1415;
-                imageView3.setRotation((float) (sunData.getAzimuth().floatValue()) - 180 + (float) compass);
+                imageView3.setRotation((float) (sunData.getAzimuth().floatValue())  + 180 - (float) compass);
             }
 
             @Override
