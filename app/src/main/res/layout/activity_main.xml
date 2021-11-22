@@ -40,8 +40,11 @@
         android:layout_marginStart="101dp"
         android:layout_marginEnd="102dp"
         android:layout_marginBottom="60dp"
+        android:backgroundTint="#81FD6030"
         android:onClick="updateLocalizationData"
         android:text="Update localization"
+        android:textColor="#E1000000"
+        app:iconTint="#B32424"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
